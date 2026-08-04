@@ -18,6 +18,7 @@
 
     <modules>
         <module>gc-eureka-server</module>
+        <module>gc-clientes</module>
     </modules>
 
     <properties>
