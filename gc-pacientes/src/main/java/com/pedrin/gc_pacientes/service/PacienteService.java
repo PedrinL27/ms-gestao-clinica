@@ -36,8 +36,24 @@ public class PacienteService {
     }
 
     @Transactional
+    public void update(UUID uuid, Paciente paciente) {
+        Paciente pacienteEncontrado = findById(uuid);
+        mapPaciente(paciente, pacienteEncontrado);
+    }
+
+
+    @Transactional
     public void delete(UUID id) throws PacienteNaoEncontradoException {
         Paciente paciente = findById(id);
         paciente.setAtivo(false);
     }
+
+    private static void mapPaciente(Paciente paciente, Paciente pacienteEncontrado) {
+        pacienteEncontrado.setNome(paciente.getNome());
+        pacienteEncontrado.setCpf(paciente.getCpf());
+        pacienteEncontrado.setEmail(paciente.getEmail());
+        pacienteEncontrado.setTelefone(paciente.getTelefone());
+        pacienteEncontrado.setDataNascimento(paciente.getDataNascimento());
+    }
+    
 }
