@@ -18,7 +18,9 @@
 
     <modules>
         <module>gc-eureka-server</module>
-        <module>gc-clientes</module>
+        <module>gc-gateway</module>
+        <module>gc-pacientes</module>
+        <module>gc-medicos</module>
     </modules>
 
     <properties>
