@@ -13,7 +13,7 @@ public class GatewayConfig {
         return builder
                 .routes()
                 .route(r -> r.path("/medico/**").uri("lb://gc-medicos"))
-                .route(r -> r.path("/paciente/**").uri("lb://gc-pacientes"))
+                .route(r -> r.path("/pacientes/**").uri("lb://gc-pacientes"))
                 .build();
     }
 }
