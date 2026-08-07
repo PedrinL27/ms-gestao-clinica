@@ -6,6 +6,17 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+  ai:
+    mcp:
+      server:
+        name: gc-pacientes
+        version: 1.0.0
+        protocol: streamable
+        stdio: false
+        type: sync
+        streamable-http:
+          mcp-endpoint: /api/mcp
+          keep-alive-interval: 30s
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
