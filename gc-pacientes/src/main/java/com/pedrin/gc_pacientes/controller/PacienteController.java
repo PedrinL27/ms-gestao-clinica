@@ -7,6 +7,9 @@ import com.pedrin.gc_pacientes.controller.mapper.PacienteMapper;
 import com.pedrin.gc_pacientes.model.Paciente;
 import com.pedrin.gc_pacientes.service.PacienteService;
 import com.pedrin.gc_pacientes.service.exception.PacienteNaoEncontradoException;
+import com.pedrin.gc_pacientes.service.exception.RegistroDuplicadoException;
+import com.pedrin.gc_pacientes.service.exception.dto.RegistroDuplicadoDTO;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +30,17 @@ public class PacienteController {
     private final PacienteMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Void> salvarPaciente(@RequestBody SalvarPacienteDTO dto) {
+    public ResponseEntity<?> salvarPaciente(@RequestBody @Valid SalvarPacienteDTO dto) {
         var paciente = mapper.salvarPacienteDTOtoPaciente(dto);
-        service.salvar(paciente);
-        return ResponseEntity.ok().build();
+        try {
+            service.salvar(paciente);
+            return ResponseEntity.accepted().build();
+        } catch (RegistroDuplicadoException e) {
+            return ResponseEntity.badRequest().body(new RegistroDuplicadoDTO(
+                    e.getMessage(),
+                    e.getField()
+            ));
+        }
     }
 
     @GetMapping

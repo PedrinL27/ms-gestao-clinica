@@ -1,6 +1,7 @@
 package com.pedrin.gc_pacientes.controller.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
@@ -20,7 +21,7 @@ public record SalvarPacienteDTO(
         @NotBlank(message = "Campo requerido")
         @Size(min = 5, max = 50)
         String email,
-        @NotBlank(message = "Campo requerido")
+        @NotNull(message = "Campo requerido")
         @Past(message = "Nao pode ser uma data futura")
         LocalDate dataNascimento
 ) {

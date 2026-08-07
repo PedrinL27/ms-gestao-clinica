@@ -3,6 +3,7 @@ package com.pedrin.gc_pacientes.service;
 import com.pedrin.gc_pacientes.model.Paciente;
 import com.pedrin.gc_pacientes.repository.PacienteRepository;
 import com.pedrin.gc_pacientes.service.exception.PacienteNaoEncontradoException;
+import com.pedrin.gc_pacientes.service.validation.PacienteValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,9 +16,11 @@ import java.util.UUID;
 public class PacienteService {
 
     private final PacienteRepository repository;
+    private final PacienteValidation validation;
 
     public void salvar(Paciente paciente) {
         paciente.setAtivo(true);
+        validation.validarPaciente(paciente);
         repository.save(paciente);
     }
 
